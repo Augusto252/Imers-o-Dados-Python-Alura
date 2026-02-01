@@ -10,12 +10,8 @@ st.set_page_config(
     layout="wide",
 )
 
-
-
 # --- Carregamento dos dados ---
 df = pd.read_csv("https://raw.githubusercontent.com/vqrca/dashboard_salarios_dados/refs/heads/main/dados-imersao-final.csv")
-
-
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
@@ -45,19 +41,6 @@ df_filtrado = df[
     (df['tamanho_empresa'].isin(tamanhos_selecionados))
 ]
 
-
-
-# --- Filtragem do DataFrame ---
-# O dataframe principal é filtrado com base nas seleções feitas na barra lateral.
-df_filtrado = df[
-    (df['ano'].isin(anos_selecionados)) &
-    (df['senioridade'].isin(senioridades_selecionadas)) &
-    (df['contrato'].isin(contratos_selecionados)) &
-    (df['tamanho_empresa'].isin(tamanhos_selecionados))
-]
-
-
-
 # --- Conteúdo Principal ---
 st.title("🎲 Dashboard de Análise de Salários na Área de Dados")
 st.markdown("Explore os dados salariais na área de dados nos últimos anos. Utilize os filtros à esquerda para refinar sua análise.")
@@ -80,7 +63,6 @@ col3.metric("Total de registros", f"{total_registros:,}")
 col4.metric("Cargo mais frequente", cargo_mais_frequente)
 
 st.markdown("---")
-
 
 # --- Análises Visuais com Plotly ---
 st.subheader("Gráficos")
@@ -135,8 +117,6 @@ with col_graf3:
         st.plotly_chart(grafico_remoto, use_container_width=True)
     else:
         st.warning("Nenhum dado para exibir no gráfico dos tipos de trabalho.")
-
-
 
 with col_graf4:
     if not df_filtrado.empty:
